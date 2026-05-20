@@ -7,10 +7,8 @@ import argparse
 import os
 import string
 import matplotlib.pyplot as plt
-import pandas as pd
 import cv2
 import numpy as np
-import sklearn
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
 from lda_normal_bayes_classifier import LdaNormalBayesClassifier
 

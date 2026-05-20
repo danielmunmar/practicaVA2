@@ -7,20 +7,20 @@
 # Modificar como se crea conveniente (incluyendo métodos y parámetros), únicamente es una guía.
 
 import string
+import cv2
+import numpy as np
 from sklearn.decomposition import PCA, TruncatedSVD
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.linear_model import LogisticRegression
 from sklearn.naive_bayes import GaussianNB
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.svm import SVC
-import cv2
-import numpy as np
 from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
 from ocr_classifier import OCRClassifier
 
 class LdaNormalBayesClassifier(OCRClassifier):
     """
-    Classifier for Optical Character Recognition using LDA and the Bayes with Gaussian classfier.
+    Classifier for Optical Character Recognition using differents reduction algorithms and classifiers.
     """
 
     def __init__(self, ocr_char_size=(25, 25), classifier_type="sklearn_bayes", reduction="lda"):
@@ -107,7 +107,7 @@ class LdaNormalBayesClassifier(OCRClassifier):
         print(f"[TRAIN] Total: {len(X)} feature vectors extracted")
         print(f"[TRAIN] Feature matrix shape: {X.shape[0]} x {X.shape[1]}")
         
-        # Perform LDA training
+        # Perform Classifier training
         n_components = min(len(all_chars) - 1, X.shape[1] // 4)
         X_reduced = self.reduce(n_components, X, y)
         
@@ -134,7 +134,7 @@ class LdaNormalBayesClassifier(OCRClassifier):
         if features is None:
             return 1
         
-        # Obtain the estimated label by the LDA + Bayes classifier
+        # Obtain the estimated label by the classifier
         x = features.reshape(1, -1)
 
         if self.reduction == "lda":
@@ -203,9 +203,9 @@ class LdaNormalBayesClassifier(OCRClassifier):
         if roi.size == 0:
             return None
 
-        # Resize to fixed size and convert to vector
+        # Resize to fixed size and convert to vector and normalize
         roi = cv2.resize(roi, self.ocr_char_size, interpolation=cv2.INTER_AREA)
-        features = roi.flatten().astype(np.float32) #/ 255.0 Falta probar
+        features = roi.flatten().astype(np.float32) / 255
 
         return features
     
