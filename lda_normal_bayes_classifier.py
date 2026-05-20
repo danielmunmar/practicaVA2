@@ -184,7 +184,7 @@ class LdaNormalBayesClassifier(OCRClassifier):
         binary = cv2.adaptiveThreshold(
             img, 255,
             cv2.ADAPTIVE_THRESH_GAUSSIAN_C,
-            cv2.THRESH_BINARY,
+            cv2.THRESH_BINARY_INV,
             11, 2
         )
 

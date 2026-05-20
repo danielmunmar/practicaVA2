@@ -91,10 +91,10 @@ def plot_recognition_distance(p_gt, p):
 if __name__ == "__main__":
 
     print('PROCESANDO testing_ocr ------------------------------')
-    panels_gt = read_csv_file('./IMÁGENES_PANELES/test_ocr_panels/gt.txt')
+    panels_gt = read_csv_file('./test_ocr_panels/gt.txt')
     print(panels_gt)
 
-    panels = read_csv_file('./IMÁGENES_PANELES/test_ocr_panels/resultado.txt')
+    panels = read_csv_file('./resultado.txt')
     print(panels)
 
     plot_recognition_distance(panels_gt, panels)
